@@ -1,0 +1,27 @@
+https://medium.com/technology-hits/easily-distribute-python-selenium-applications-with-pyinstaller-ef276844ad2d
+
+1. Making a .spec file for PyInstaller
+
+Okay, here comes the fun part, we are going to create a spec file which tells pyinstaller how to process your main.py script:
+
+pyi-makespec main.py --onefile --noconsole --add-binary "driver\chromedriver.exe;driver\" --add-data "example.json;." --add-data "example.ini;." --name selenium-automation-exe
+
+— onefile → turns the outputs as one exe
+— noconsole → console is not displayed when the created exe is executed.
+— add-binary → specify the binary file you want to add to the exe. In this case, it’s our chromedriver.exe ✌️
+— add-data → specify the data files that you would want to include
+After running the command above, you should see a selenium-automation-exe.spec in the same directory.
+
+2. Modify .spec adding shutil.copyfile (Reference)
+To add config files outside of your final dist folder, you’ll need to modify selenium-automation-exe.spec . You will need to add the following code at the end of your .spec file:
+
+import shutil
+shutil.copyfile('example.ini', '{0}/example.ini'.format(DISTPATH))
+shutil.copyfile('example.json', '{0}/example.json'.format(DISTPATH))
+
+3. Run pyinstaller command
+Finally, we will create the executable file with the command below:
+
+pyinstaller --clean selenium-automation-exe.spec
+
+You may find the exe inside the dist folder. Run the selenium-automation-exe.exe to try it out

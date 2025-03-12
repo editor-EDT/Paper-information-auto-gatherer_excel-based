@@ -1,0 +1,19 @@
+1.  xlwings
+app = xlwings.App(visible=False,add_book=False)
+book = app.books.open(r'C:\Users\Administrator\Desktop\SHMFF用户成果统计表(EMR)2016-2020-空.xlsx')
+
+先是
+-------------------------
+Exception has occurred: com_error (-2147352567, 'Exception occured.', (0, None, None, None, 0, -2147352565), None)
+------------------
+
+后来卸载了腾讯电脑管家以后，
+错误 
+----------------------------------
+pywintypes.com_error: (-2147352567, '发生意外。', (0, None, None, None, 0, -2147352565), None)
+-----------------------------------
+
+发现 app = xlwings.App(visible=False,add_book=False) 中参数visible=False导致出错
+
+
+2. fengqubiao检索到53个左右时，退出登录了。---待改进(重新登陆)
